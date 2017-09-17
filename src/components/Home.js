@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {addUser, addTodo} from '../../actions';
-import '../../assets/css/App.css';
+import {addUser, addTodo} from '../actions';
+import { Link } from 'react-router';
+
+import '../assets/css/App.css';
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({addUser, addTodo}, dispatch);
@@ -62,10 +64,8 @@ class Home extends Component {
     })
     
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>To Do List</h2>
-        </div>
+      <div>
+          <h2>Home</h2>
         
         <div className="todo__container">
           <ul>
