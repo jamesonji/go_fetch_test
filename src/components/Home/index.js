@@ -6,22 +6,39 @@ class Home extends Component {
     super(props);
     
     this.state = {
-      users:[{id:10, name:'Song'}],
+      users:[{id:0, name:'Song', tasks:[]}],
       addingUser: false,
       addingTask: false,
+      newUserName:'',
     };
     
     this.addUser = this.addUser.bind(this);
+    this.saveUser = this.saveUser.bind(this);
+    this.handleNewUserInput = this.handleNewUserInput.bind(this);
   }
   
   addUser(){
     this.setState({
       addingUser: true
+    });
+  }
+  
+  saveUser(){
+    let users = this.state.users;
+    let newUser = {id: users.length, name: this.state.newUserName, tasks:[]};
+    users.push(newUser);
+    this.setState({
+      users,
+      addingUser: false,
+      newUserName: '',
     })
   }
   
-  render() {
-    
+  handleNewUserInput(e){
+    this.setState({newUserName: e.target.value});
+  }
+  
+  render() {  
     let users = this.state.users;
     
     let userList = users.map(function(user){
@@ -43,8 +60,14 @@ class Home extends Component {
             {userList}
           </ul>
         
-          {/* {this.state.addingUser && <input type='text'></input>} */}
-          <button onClick={()=>this.addUser()}>new</button>
+          <div>
+            {this.state.addingUser && <input type='text' onChange={(e)=> this.handleNewUserInput(e)} value={this.state.newUserName}/>}
+            {this.state.addingUser? 
+              <button onClick={()=>this.saveUser()}>save</button>
+              :
+              <button onClick={()=>this.addUser()}>new</button>
+            }
+          </div>
         </div>
       </div>
     );
