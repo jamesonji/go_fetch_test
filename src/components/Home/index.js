@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {addUser, addTodo} from '../../actions';
 import '../../assets/css/App.css';
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({addUser, addTodo}, dispatch);
+}
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users,
+    todos: state.todos,
+  }
+}
 
 class Home extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      users:[{id:0, name:'Song', tasks:[]}],
       addingUser: false,
       addingTask: false,
       newUserName:'',
@@ -24,11 +37,12 @@ class Home extends Component {
   }
   
   saveUser(){
-    let users = this.state.users;
-    let newUser = {id: users.length, name: this.state.newUserName, tasks:[]};
-    users.push(newUser);
+    let users = this.props.users;
+    let newUser = {id: users.length, name: this.state.newUserName};
+    
+    this.props.addUser(newUser);
+    
     this.setState({
-      users,
       addingUser: false,
       newUserName: '',
     })
@@ -39,9 +53,7 @@ class Home extends Component {
   }
   
   render() {  
-    let users = this.state.users;
-    
-    let userList = users.map(function(user){
+    let userList = this.props.users.map(function(user){
       return (
         <li key={`user_${user.id}`}>
           {user.name}
@@ -74,4 +86,6 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home);
+export default HomeContainer;
+
