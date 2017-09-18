@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addUser, addTask} from '../actions';
-import { Link } from 'react-router';
 
 import '../assets/css/App.css';
 
@@ -58,11 +57,11 @@ class Home extends Component {
     })
   }
   
-  selectUser(){
-    console.log('haha');
-    // this.setState({
-    //   selectedUserId: userId,
-    // })
+  selectUser(user){
+    console.log(user);
+    this.setState({
+      selectedUserId: user.id,
+    })
   }
   
   handleNewUserInput(e){
@@ -78,11 +77,13 @@ class Home extends Component {
   
   saveTask(){
     let newTask = {
-      id: new Date.now(),
+      id: Date.now(),
       content: this.state.newTask,
       userId: this.state.selectedUserId,
     };
-    
+
+    console.log(newTask);
+
     this.props.addTask(newTask);
     
     this.setState({
@@ -99,27 +100,27 @@ class Home extends Component {
     let self = this;
     let userList = this.props.users.map(function(user){
       return (
-        <li key={`user_${user.id}`}>
-          <div onClick={() => self.selectUser() }>
+        <li key={`user_${user.id}`} className="user_name">
+          <div onClick={() => self.selectUser(user) }>
             {user.name}
           </div>
         </li>
       )
-    })
+    });
     
     let tasksList = this.props.tasks.map(function(task){
-      if(task.userId != this.state.selectedUserId){
+      if(task.userId !== self.state.selectedUserId){
         return false;
       }
       
       return (
-        <li key={`task_${task.id}`}>
+        <li key={`task_${task.id}`} className="user_task">
           <div onClick={() => self.toggleTask() }>
             {task.content}
           </div>
         </li>
       )
-    })
+    });
     
     return (
       <div>

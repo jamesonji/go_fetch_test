@@ -7,15 +7,17 @@ export const addUser = (user) => {
   }
 }
 
-export const addTask = task => {
+export const addTask = (task) => {
   return {
-    type: 'ADD_TASK',
+      type: 'ADD_TASK',
+      task,
   }
 }
 
 export const toggleTask = task => {
   return {
     type: 'TOGGLE_TASK',
+      task,
   }
 }
 

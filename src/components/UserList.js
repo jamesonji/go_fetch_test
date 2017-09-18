@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addUser} from '../actions';
-import { Link } from 'react-router';
 
 import '../assets/css/App.css';
 

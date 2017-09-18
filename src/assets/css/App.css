@@ -1,14 +1,25 @@
 .App {
   text-align: left;
+  height:100%;
+  width:100%;
+  padding: 10px;
+  background-color: #FFF2D7;
 }
 
 .App-header {
-  background-color: #222;
   height: 50px;
   padding: 10px;
-  color: white;
+  color: #FF5414;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.user_name{
+  cursor: pointer;
+}
+
+.user_task{
+
 }

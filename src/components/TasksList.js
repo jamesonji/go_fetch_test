@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {addTask} from '../actions';
-import { Link } from 'react-router';
 
 import '../assets/css/App.css';
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({addTodo}, dispatch);
+  return bindActionCreators({addTask}, dispatch);
 }
 
 const mapStateToProps = (state) => {
