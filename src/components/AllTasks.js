@@ -42,6 +42,7 @@ class AllTasks extends Component {
     })
     return (
       <div className="all_tasks_container">
+        <h2>All Tasks</h2>
         <div className="all_tasks_title">
           <h4 className="all_tasks_user">Users</h4>
           <h4 className="all_tasks_task">Tasks</h4>

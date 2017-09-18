@@ -134,33 +134,36 @@ class Home extends Component {
     });
 
     return (
-      <div className="home_container">
-        <div className="user_container">
-          <h4>Users</h4>
-            {userList}
-        
-          <div>
-            {this.state.addingUser && <input type='text' onChange={(e)=> this.handleNewUserInput(e)} value={this.state.newUserName}/>}
-            {this.state.addingUser? 
-              <button onClick={()=>this.saveUser()}>save</button>
-              :
-              <button onClick={()=>this.addUser()}>new</button>
-            }
+      <div className="home_div">
+        <h2>Home</h2>
+        <div className="home_container">
+          <div className="user_container">
+            <h4>Users</h4>
+              {userList}
+
+            <div>
+              {this.state.addingUser && <input type='text' onChange={(e)=> this.handleNewUserInput(e)} value={this.state.newUserName}/>}
+              {this.state.addingUser?
+                <button onClick={()=>this.saveUser()}>save</button>
+                :
+                <button onClick={()=>this.addUser()}>new</button>
+              }
+            </div>
           </div>
-        </div>
-        
-        
-        <div className='task_container'>
-          <h4>Tasks</h4>
-            {tasksList}
-          
-          <div>
-            {this.state.addingTask && <input type='text' onChange={(e)=> this.handleNewTaskInput(e)} value={this.state.newTask}/>}
-            {this.state.addingTask? 
-              <button onClick={()=>this.saveTask()}>save</button>
-              :
-              <button onClick={()=>this.addTask()}>new task</button>
-            }
+
+
+          <div className='task_container'>
+            <h4>Tasks</h4>
+              {tasksList}
+
+            <div>
+              {this.state.addingTask && <input type='text' onChange={(e)=> this.handleNewTaskInput(e)} value={this.state.newTask}/>}
+              {this.state.addingTask?
+                <button onClick={()=>this.saveTask()}>save</button>
+                :
+                <button onClick={()=>this.addTask()}>new task</button>
+              }
+            </div>
           </div>
         </div>
       </div>

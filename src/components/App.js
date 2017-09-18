@@ -6,9 +6,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Task App</h2>
-        </div>
         <div className="App-navigator">
           <Link to="/" className="navigator_link">Home</Link>
           <Link to="/tasks" className="navigator_link">All Tasks</Link>

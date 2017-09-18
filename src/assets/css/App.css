@@ -15,6 +15,9 @@
 
 .App-navigator{
   color: #FF5414;
+  height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .navigator_link{
