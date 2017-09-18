@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {addUser, addTodo} from '../actions';
+import {addUser, addTask} from '../actions';
 import { Link } from 'react-router';
 
 import '../assets/css/App.css';
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({addUser, addTodo}, dispatch);
+  return bindActionCreators({addUser, addTask}, dispatch);
 }
 
 const mapStateToProps = (state) => {
   return {
     users: state.users,
-    todos: state.todos,
+    tasks: state.tasks,
   }
 }
 
@@ -25,11 +25,19 @@ class Home extends Component {
       addingUser: false,
       addingTask: false,
       newUserName:'',
+      newTask:'',
+      selectedUserId:0,
     };
     
     this.addUser = this.addUser.bind(this);
     this.saveUser = this.saveUser.bind(this);
+    this.selectUser = this.selectUser.bind(this);
+    
+    this.addTask = this.addTask.bind(this);
+    this.saveTask = this.saveTask.bind(this);
+    
     this.handleNewUserInput = this.handleNewUserInput.bind(this);
+    this.handleNewTaskInput = this.handleNewTaskInput.bind(this);
   }
   
   addUser(){
@@ -50,15 +58,65 @@ class Home extends Component {
     })
   }
   
+  selectUser(){
+    console.log('haha');
+    // this.setState({
+    //   selectedUserId: userId,
+    // })
+  }
+  
   handleNewUserInput(e){
     this.setState({newUserName: e.target.value});
   }
   
+  
+  addTask(){
+    this.setState({
+      addingTask: true
+    });
+  }
+  
+  saveTask(){
+    let newTask = {
+      id: new Date.now(),
+      content: this.state.newTask,
+      userId: this.state.selectedUserId,
+    };
+    
+    this.props.addTask(newTask);
+    
+    this.setState({
+      addingTask: false,
+      newTask: '',
+    })
+  }
+  
+  handleNewTaskInput(e){
+    this.setState({newTask: e.target.value});
+  }
+  
   render() {  
+    let self = this;
     let userList = this.props.users.map(function(user){
       return (
         <li key={`user_${user.id}`}>
-          {user.name}
+          <div onClick={() => self.selectUser() }>
+            {user.name}
+          </div>
+        </li>
+      )
+    })
+    
+    let tasksList = this.props.tasks.map(function(task){
+      if(task.userId != this.state.selectedUserId){
+        return false;
+      }
+      
+      return (
+        <li key={`task_${task.id}`}>
+          <div onClick={() => self.toggleTask() }>
+            {task.content}
+          </div>
         </li>
       )
     })
@@ -68,6 +126,7 @@ class Home extends Component {
           <h2>Home</h2>
         
         <div className="todo__container">
+          <h4>Users</h4>
           <ul>
             {userList}
           </ul>
@@ -78,6 +137,23 @@ class Home extends Component {
               <button onClick={()=>this.saveUser()}>save</button>
               :
               <button onClick={()=>this.addUser()}>new</button>
+            }
+          </div>
+        </div>
+        
+        
+        <div className='task__container'>
+          <h4>Tasks</h4>
+          <ul>
+            {tasksList}
+          </ul>
+          
+          <div>
+            {this.state.addingTask && <input type='text' onChange={(e)=> this.handleNewTaskInput(e)} value={this.state.newTask}/>}
+            {this.state.addingTask? 
+              <button onClick={()=>this.saveTask()}>save</button>
+              :
+              <button onClick={()=>this.addTask()}>new task</button>
             }
           </div>
         </div>

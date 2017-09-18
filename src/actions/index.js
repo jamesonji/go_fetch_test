@@ -7,18 +7,15 @@ export const addUser = (user) => {
   }
 }
 
-export const addTodo = text => {
+export const addTask = task => {
   return {
-    type: 'ADD_TODO',
-    id: nextTodoId++,
-    text
+    type: 'ADD_TASK',
   }
 }
 
-export const toggleTodo = id => {
+export const toggleTask = task => {
   return {
-    type: 'TOGGLE_TODO',
-    id
+    type: 'TOGGLE_TASK',
   }
 }
 

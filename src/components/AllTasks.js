@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import '../assets/css/App.css';
 
-class Tasks extends Component {
+class AllTasks extends Component {
   render() {
     return (
       <div>
@@ -12,4 +12,4 @@ class Tasks extends Component {
   }
 }
 
-export default Tasks;
+export default AllTasks;

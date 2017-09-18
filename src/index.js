@@ -7,16 +7,16 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import todos from './reducers/todos';
+import tasks from './reducers/tasks';
 import users from './reducers/users';
 
 import App from './components/App.js';
 import Home from './components/Home.js';
-import Tasks from './components/Tasks.js';
+import AllTasks from './components/AllTasks.js';
 
 let store = createStore(
                         combineReducers({
-                          todos,
+                          tasks,
                           users,
                           routing: routerReducer
                         }), 
@@ -30,7 +30,7 @@ ReactDOM.render(
     <Router history={history}>
         <Route path="/" component={App}>
           <IndexRoute component={Home}/>
-          <Route path="/tasks" component={Tasks}/>
+          <Route path="/tasks" component={AllTasks}/>
         </Route>
       </Router>
   </Provider>, 
