@@ -1,9 +1,10 @@
 .App {
   text-align: left;
-  height:100%;
-  width:100%;
-  padding: 10px;
-  background-color: #FFF2D7;
+  height:90%;
+  width:60%;
+  padding-left: 15%;
+  padding-right: 15%;
+
 }
 
 .App-header {
@@ -41,11 +42,17 @@
 
 .user_task{
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 
-.user_task.completed{
+.user_task .completed{
   text-decoration: line-through;
   color: darkgrey;
+}
+
+.remove_task{
+
 }
 
 .all_tasks_container{

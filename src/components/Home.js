@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {addUser, addTask, toggleTask} from '../actions';
+import {addUser, addTask, toggleTask, removeTask} from '../actions';
 
 import '../assets/css/App.css';
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({addUser, addTask, toggleTask}, dispatch);
+  return bindActionCreators({addUser, addTask, toggleTask, removeTask}, dispatch);
 }
 
 const mapStateToProps = (state) => {
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
     users: state.users,
     tasks: state.tasks,
   }
-}
+};
 
 class Home extends Component {
   constructor(props) {
@@ -36,6 +36,7 @@ class Home extends Component {
     this.addTask = this.addTask.bind(this);
     this.saveTask = this.saveTask.bind(this);
     this.toggleTask = this.toggleTask.bind(this);
+    this.removeTask = this.removeTask.bind(this);
     
     this.handleNewUserInput = this.handleNewUserInput.bind(this);
     this.handleNewTaskInput = this.handleNewTaskInput.bind(this);
@@ -97,6 +98,10 @@ class Home extends Component {
   toggleTask(taskId){
     this.props.toggleTask(taskId);
   }
+
+  removeTask(taskId){
+    this.props.removeTask(taskId);
+  }
   
   handleNewTaskInput(e){
     this.setState({newTask: e.target.value});
@@ -120,10 +125,13 @@ class Home extends Component {
       }
 
       return (
-        <div key={`task_${task.id}`} className={"user_task" + (task.completed? ' completed' : '')}>
-          <div onClick={() => self.toggleTask(task.id) }>
+        <div key={`task_${task.id}`} className="user_task">
+          <span onClick={() => self.toggleTask(task.id) }  className={task.completed? ' completed' : ''}>
             {task.content}
-          </div>
+          </span>
+          <span className="remove_task">
+            <button onClick={()=> self.removeTask(task.id)}>remove</button>
+          </span>
         </div>
       )
     });
