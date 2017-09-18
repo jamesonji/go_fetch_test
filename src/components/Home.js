@@ -26,7 +26,6 @@ class Home extends Component {
       newUserName:'',
       newTask:'',
       selectedUserId:0,
-      selectedUserName: '',
     };
     
     this.addUser = this.addUser.bind(this);
@@ -63,7 +62,6 @@ class Home extends Component {
   selectUser(user){
     this.setState({
       selectedUserId: user.id,
-      selectedUserName: user.name,
     })
   }
   
@@ -84,7 +82,6 @@ class Home extends Component {
       content: this.state.newTask,
       completed: false,
       userId: this.state.selectedUserId,
-      userName: this.state.selectedUserName,
     };
 
     this.props.addTask(newTask);
@@ -111,7 +108,7 @@ class Home extends Component {
     let self = this;
     let userList = this.props.users.map(function(user){
       return (
-        <div key={`user_${user.id}`} className={"user_name" + (user.id == self.state.selectedUserId? ' selected' : '')}>
+        <div key={`user_${user.id}`} className={"user_name" + (user.id === self.state.selectedUserId? ' selected' : '')}>
           <div onClick={() => self.selectUser(user) }>
             {user.name}
           </div>
@@ -145,7 +142,7 @@ class Home extends Component {
           <div>
             {this.state.addingUser && <input type='text' onChange={(e)=> this.handleNewUserInput(e)} value={this.state.newUserName}/>}
             {this.state.addingUser? 
-              <button onClick={()=>this.saveUser()}>save+</button>
+              <button onClick={()=>this.saveUser()}>save</button>
               :
               <button onClick={()=>this.addUser()}>new</button>
             }

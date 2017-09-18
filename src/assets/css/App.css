@@ -1,6 +1,6 @@
 .App {
   text-align: left;
-  height:90%;
+  height:100%;
   width:60%;
   padding-left: 15%;
   padding-right: 15%;
@@ -11,6 +11,21 @@
   height: 50px;
   padding: 10px;
   color: #FF5414;
+}
+
+.App-navigator{
+  color: #FF5414;
+}
+
+.navigator_link{
+  color: coral;
+  text-decoration: none;
+  margin:0 10px;
+}
+
+.navigator_link:hover{
+  background-color: #FF5414;
+  color: white;
 }
 
 .App-intro {
@@ -34,6 +49,7 @@
 
 .user_name{
   cursor: pointer;
+  margin: 10px 0;
 }
 
 .user_name.selected{
@@ -42,6 +58,7 @@
 
 .user_task{
   cursor: pointer;
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
 }
@@ -49,10 +66,6 @@
 .user_task .completed{
   text-decoration: line-through;
   color: darkgrey;
-}
-
-.remove_task{
-
 }
 
 .all_tasks_container{
@@ -79,4 +92,17 @@
 
 .all_tasks_task{
   flex: 2;
+}
+
+.task_list_task{
+  flex: 2;
+}
+
+.task_list_task:hover{
+  cursor: pointer;
+}
+
+.task_list_task.completed{
+  text-decoration: line-through;
+  color: darkgrey;
 }
