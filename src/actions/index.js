@@ -1,5 +1,3 @@
-let nextTodoId = 0
-
 export const addUser = (user) => {
   return {
     type: 'ADD_USER',
@@ -14,10 +12,11 @@ export const addTask = (task) => {
   }
 }
 
-export const toggleTask = task => {
+export const toggleTask = (taskId) => {
+  console.log(taskId);
   return {
     type: 'TOGGLE_TASK',
-      task,
+    taskId,
   }
 }
 

@@ -4,16 +4,16 @@ const tasks = (state = [], action) => {
       return [
         ...state,
         action.task,
-      ]
+      ];
     case 'TOGGLE_TASK':
       return state.map(task =>
-        (task.id === action.id) 
+        (task.id == action.taskId)
           ? {...task, completed: !task.completed}
           : task
-      )
+      );
     default:
       return state
   }
-}
+};
 
 export default tasks

@@ -11,7 +11,7 @@ function mapDispatchToProps(dispatch){
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos,
+    tasks: state.tasks,
   }
 }
 
@@ -21,39 +21,17 @@ class TasksList extends Component {
     
     this.state = {
       addingTask: false,
-      newTaks:'',
+      newTask:'',
     };
     
     this.addTask = this.addTask.bind(this);
     this.saveTask = this.saveTask.bind(this);
     this.handleNewTaskInput = this.handleNewTaskInput.bind(this);
   }
-  
-  addUser(){
-    this.setState({
-      addingTask: true
-    });
-  }
-  
-  saveUser(){
-    let users = this.props.users;
-    let newUser = {id: users.length, name: this.state.newUserName};
-    
-    this.props.addUser(newUser);
-    
-    this.setState({
-      addingTask: false,
-      newTask: '',
-    })
-  }
-  
+
   addTask(){
     let newTask = this.stata.newTask;
     this.props.addTask(newTask);
-  }
-  
-  handleNewUserInput(e){
-    this.setState({newUserName: e.target.value});
   }
   
   render() {  

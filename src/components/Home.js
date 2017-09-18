@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {addUser, addTask} from '../actions';
+import {addUser, addTask, toggleTask} from '../actions';
 
 import '../assets/css/App.css';
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({addUser, addTask}, dispatch);
+  return bindActionCreators({addUser, addTask, toggleTask}, dispatch);
 }
 
 const mapStateToProps = (state) => {
@@ -26,6 +26,7 @@ class Home extends Component {
       newUserName:'',
       newTask:'',
       selectedUserId:0,
+      selectedUserName: '',
     };
     
     this.addUser = this.addUser.bind(this);
@@ -34,11 +35,12 @@ class Home extends Component {
     
     this.addTask = this.addTask.bind(this);
     this.saveTask = this.saveTask.bind(this);
+    this.toggleTask = this.toggleTask.bind(this);
     
     this.handleNewUserInput = this.handleNewUserInput.bind(this);
     this.handleNewTaskInput = this.handleNewTaskInput.bind(this);
   }
-  
+
   addUser(){
     this.setState({
       addingUser: true
@@ -58,9 +60,9 @@ class Home extends Component {
   }
   
   selectUser(user){
-    console.log(user);
     this.setState({
       selectedUserId: user.id,
+      selectedUserName: user.name,
     })
   }
   
@@ -79,10 +81,10 @@ class Home extends Component {
     let newTask = {
       id: Date.now(),
       content: this.state.newTask,
+      completed: false,
       userId: this.state.selectedUserId,
+      userName: this.state.selectedUserName,
     };
-
-    console.log(newTask);
 
     this.props.addTask(newTask);
     
@@ -90,6 +92,10 @@ class Home extends Component {
       addingTask: false,
       newTask: '',
     })
+  }
+
+  toggleTask(taskId){
+    this.props.toggleTask(taskId);
   }
   
   handleNewTaskInput(e){
@@ -100,42 +106,38 @@ class Home extends Component {
     let self = this;
     let userList = this.props.users.map(function(user){
       return (
-        <li key={`user_${user.id}`} className="user_name">
+        <div key={`user_${user.id}`} className={"user_name" + (user.id == self.state.selectedUserId? ' selected' : '')}>
           <div onClick={() => self.selectUser(user) }>
             {user.name}
           </div>
-        </li>
+        </div>
       )
     });
-    
+
     let tasksList = this.props.tasks.map(function(task){
       if(task.userId !== self.state.selectedUserId){
         return false;
       }
-      
+
       return (
-        <li key={`task_${task.id}`} className="user_task">
-          <div onClick={() => self.toggleTask() }>
+        <div key={`task_${task.id}`} className={"user_task" + (task.completed? ' completed' : '')}>
+          <div onClick={() => self.toggleTask(task.id) }>
             {task.content}
           </div>
-        </li>
+        </div>
       )
     });
-    
+
     return (
-      <div>
-          <h2>Home</h2>
-        
-        <div className="todo__container">
+      <div className="home_container">
+        <div className="user_container">
           <h4>Users</h4>
-          <ul>
             {userList}
-          </ul>
         
           <div>
             {this.state.addingUser && <input type='text' onChange={(e)=> this.handleNewUserInput(e)} value={this.state.newUserName}/>}
             {this.state.addingUser? 
-              <button onClick={()=>this.saveUser()}>save</button>
+              <button onClick={()=>this.saveUser()}>save+</button>
               :
               <button onClick={()=>this.addUser()}>new</button>
             }
@@ -143,11 +145,9 @@ class Home extends Component {
         </div>
         
         
-        <div className='task__container'>
+        <div className='task_container'>
           <h4>Tasks</h4>
-          <ul>
             {tasksList}
-          </ul>
           
           <div>
             {this.state.addingTask && <input type='text' onChange={(e)=> this.handleNewTaskInput(e)} value={this.state.newTask}/>}
